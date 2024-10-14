@@ -6,35 +6,33 @@
 
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    # pkgs.go
-    # pkgs.python311
-    # pkgs.python311Packages.pip
-    # pkgs.nodejs_20
-    # pkgs.nodePackages.nodemon
+    pkgs.jdk11
+    pkgs.maven
+    pkgs.gradle
+    pkgs.postman
+    pkgs.jetbrains.idea-community
   ];
 
   # Sets environment variables in the workspace
-  env = {};
+  env = {
+    JAVA_HOME = "${pkgs.jdk11}/lib/openjdk";
+    PATH = "${pkgs.jdk11}/bin:${pkgs.maven}/bin:${pkgs.gradle}/bin:$PATH";
+  };
+
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
-      # "vscodevim.vim"
+      "vscjava.vscode-java-pack"
+      "redhat.java"
+      "vscjava.vscode-maven"
+      "vscjava.vscode-gradle"
     ];
 
     # Enable previews
     previews = {
       enable = true;
       previews = {
-        # web = {
-        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
-        #   # and show it in IDX's web preview panel
-        #   command = ["npm" "run" "dev"];
-        #   manager = "web";
-        #   env = {
-        #     # Environment variables to set for your server
-        #     PORT = "$PORT";
-        #   };
-        # };
+        # No changes needed here for this project
       };
     };
 
@@ -42,13 +40,23 @@
     workspace = {
       # Runs when a workspace is first created
       onCreate = {
-        # Example: install JS dependencies from NPM
-        # npm-install = "npm install";
+        # Example: create a new Maven project
+        # create-maven-project = "mvn archetype:generate -DgroupId=com.example -DartifactId=currency-converter -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false";
+        
+        # Note: Remember to add Gson dependency to your project's pom.xml or build.gradle
+        # For Maven (in pom.xml):
+        # <dependency>
+        #     <groupId>com.google.code.gson</groupId>
+        #     <artifactId>gson</artifactId>
+        #     <version>2.10.1</version>
+        # </dependency>
+        #
+        # For Gradle (in build.gradle):
+        # implementation 'com.google.code.gson:gson:2.10.1'
       };
       # Runs when the workspace is (re)started
       onStart = {
-        # Example: start a background task to watch and re-build backend code
-        # watch-backend = "npm run watch-backend";
+        # No changes needed here for this project
       };
     };
   };

@@ -12,7 +12,7 @@ import java.util.*;
 
 public class CurrencyConverter {
     private static final String API_KEY = "2cff236d406e990664f0638a";
-    private static final String API_URL = "https://v6.exchangerate-api.com/v6/" + 2cff236d406e990664f0638a + "/latest/USD";
+    private static final String API_URL = "https://v6.exchangerate-api.com/v6/" + API_KEY + "/latest/USD";
     
     private static final HttpClient httpClient = HttpClient.newHttpClient();
     private static final Gson gson = new Gson();
